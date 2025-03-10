@@ -13,13 +13,19 @@ const Index = () => {
       
       <div className="mt-8 max-w-md text-center">
         <p className="mb-4">
-          Note: This is a simplified status check. For a real production environment, 
-          you would need to implement an API endpoint that verifies your bot is running 
-          on your server.
+          This page monitors your Telegram bot that should be running as a background service on Vercel.
         </p>
-        <p className="text-sm text-gray-500">
-          To fully implement bot status monitoring, connect this UI to your backend API
-          using environment variables and proper health check endpoints.
+        <p className="text-sm text-gray-500 mb-4">
+          For the bot to work properly, you must set these environment variables in your Vercel project:
+        </p>
+        <ul className="text-left text-sm text-gray-700 mb-4 mx-auto w-fit">
+          <li>• TELEGRAM_BOT_TOKEN</li>
+          <li>• ADMIN_USER_ID</li>
+          <li>• SUPABASE_URL</li>
+          <li>• SUPABASE_SERVICE_ROLE_KEY</li>
+        </ul>
+        <p className="text-xs text-gray-500">
+          The bot uses Vercel Cron Jobs to stay alive. Check your Vercel logs if the bot is offline.
         </p>
       </div>
     </div>

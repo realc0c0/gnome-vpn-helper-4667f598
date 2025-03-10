@@ -4,7 +4,7 @@ import { Button } from './ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
 import { toast } from '@/hooks/use-toast';
 
-// This is a simplified status check component 
+// This is a real status check component that pings the bot API endpoint
 const BotStatus = () => {
   const [status, setStatus] = useState<'checking' | 'online' | 'offline'>('checking');
   const [lastChecked, setLastChecked] = useState<Date | null>(null);
@@ -13,16 +13,9 @@ const BotStatus = () => {
     setStatus('checking');
     
     try {
-      // In a real implementation, this would be an API call to your backend
-      // that checks if the Telegram bot is running
-      // For now, we'll simulate a check with a timeout
-      
-      // Simulate API call with timeout
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // For demonstration purposes - in a real app you would call an actual endpoint
-      // that verifies the bot is running on your server
-      const isOnline = true; // This should be the result of your actual API call
+      // Actually check if the bot API endpoint is responding
+      const response = await fetch('/api/bot.js');
+      const isOnline = response.ok;
       
       setStatus(isOnline ? 'online' : 'offline');
       setLastChecked(new Date());
@@ -30,7 +23,7 @@ const BotStatus = () => {
       toast({
         title: "Status Check Complete",
         description: isOnline 
-          ? "Your Telegram bot appears to be online!" 
+          ? "Your Telegram bot is running!" 
           : "Your Telegram bot appears to be offline.",
         variant: isOnline ? "default" : "destructive",
       });
